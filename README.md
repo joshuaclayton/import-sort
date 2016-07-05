@@ -2,6 +2,8 @@
 
 ImportSort is a utility to format and sort Haskell imports alphabetically.
 
+![Image of ImportSort Usage](http://i.giphy.com/3o6Zt81lkoEzgBBK9O.gif)
+
 ## Installation
 
 Clone this repository, then run:
