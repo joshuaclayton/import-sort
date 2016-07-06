@@ -4,13 +4,9 @@ module ImportSort.Types
     ) where
 
 import           Data.Text (Text)
-import qualified Data.Text as T
 import qualified Data.List as L
 
 data ModuleImport = ModuleImport Bool Text
-
-instance Show ModuleImport where
-    show (ModuleImport qualified value) = "import " ++ (if qualified then "qualified" else "         ") ++ " " ++ T.unpack value
 
 sortedImports :: [ModuleImport] -> [ModuleImport]
 sortedImports = L.sortBy sortModuleImport
