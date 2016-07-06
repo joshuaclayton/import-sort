@@ -4,6 +4,55 @@ ImportSort is a utility to format and sort Haskell imports alphabetically.
 
 ![Image of ImportSort Usage](http://i.giphy.com/3o6Zt81lkoEzgBBK9O.gif)
 
+## Supported Behavior
+
+ImportSort correctly handles one or many single-line imports.
+
+It sorts and aligns imports correctly:
+
+```haskell
+-- | old
+import qualified Data.List as L
+import System.IO
+import           Data.List ((++))
+import Data.Char (isAlpha)
+import qualified Data.Map.Strict as Map
+
+-- | new
+import           Data.Char (isAlpha)
+import           Data.List ((++))
+import qualified Data.List as L
+import qualified Data.Map.Strict as Map
+import           System.IO
+```
+
+If no qualified imports are present, it doesn't indent modules:
+
+```haskell
+-- | old
+import           Data.List ((++))
+import           Data.Maybe (catMaybes)
+
+-- | new
+import Data.List ((++))
+import Data.Maybe (catMaybes)
+```
+
+If import-sort cannot parse the list of imports, the value is returned
+unchanged:
+
+```haskell
+-- | old
+import           Data.List ((++))
+-- | TODO: do something
+import           Data.Maybe (catMaybes)
+
+-- | new
+import           Data.List ((++))
+-- | TODO: do something
+import           Data.Maybe (catMaybes)
+```
+
 ## Installation
 
 Clone this repository, then run:
