@@ -55,12 +55,48 @@ import           Data.Maybe (catMaybes)
 
 ## Installation
 
-Clone this repository, then run:
+### Homebrew (Recommended)
+
+You can install [my formulae] via [Homebrew] with `brew tap`:
+
+```sh
+brew tap joshuaclayton/formulae
+```
+
+Next, run:
+
+```sh
+brew install import-sort
+```
+
+[my formulae]: https://github.com/joshuaclayton/homebrew-formulae
+[Homebrew]: http://brew.sh/
+
+To update, run:
+
+```sh
+brew update
+brew upgrade import-sort
+```
+
+Alternatively, you can install by hand.
+
+### Installing by hand
+
+This project is written in [Haskell] and uses [Stack].
+
+Once you have these tools installed and the project cloned locally:
 
 ```sh
 stack setup
 stack install
 ```
+
+This will generate a binary in `$HOME/.local/bin`; ensure this directory is in
+your `$PATH`.
+
+[Haskell]: https://www.haskell.org
+[Stack]: http://www.haskellstack.org
 
 ## Usage
 
