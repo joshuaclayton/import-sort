@@ -1,15 +1,36 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module ImportSort.Types
-    ( ModuleImport(ModuleImport)
+    ( ModuleImport(..)
     , sortedImports
+    , miValue
+    , miQualified
     ) where
 
-import           Data.Text (Text)
 import qualified Data.List as L
+import qualified Data.List.Split as LS
+import           Data.Text (Text)
 
-data ModuleImport = ModuleImport Bool Text
+data ModuleImport
+    = QualifiedImport Text
+    | NonQualifiedImport Text
+    | Separator
+    deriving Eq
 
 sortedImports :: [ModuleImport] -> [ModuleImport]
-sortedImports = L.sortBy sortModuleImport
+sortedImports = concatMap sortedImports' . splitOn [Separator]
+  where
+    sortedImports' = L.sortBy sortModuleImport
+    splitOn = LS.split . LS.onSublist
 
 sortModuleImport :: ModuleImport -> ModuleImport -> Ordering
-sortModuleImport (ModuleImport _ a) (ModuleImport _ b) = compare a b
+sortModuleImport a b = compare (miValue a) (miValue b)
+
+miValue :: ModuleImport -> Text
+miValue (QualifiedImport t) = t
+miValue (NonQualifiedImport t) = t
+miValue Separator = ""
+
+miQualified :: ModuleImport -> Bool
+miQualified (QualifiedImport _) = True
+miQualified _ = False

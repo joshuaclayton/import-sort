@@ -31,6 +31,16 @@ spec = parallel $
                         "import Data.Bifunctor (first)\n\
                         \import Data.List ((++))"
 
+        it "retains newlines as separators" $ do
+            let string = "import Data.Maybe (catMaybes)\n\
+                         \import Data.List ((++))\n\n\
+                         \import qualified Data.Bifunctor as BF\n"
+
+            S.sortImport string `shouldBe`
+                        "import           Data.List ((++))\n\
+                        \import           Data.Maybe (catMaybes)\n\n\
+                        \import qualified Data.Bifunctor as BF"
+
         it "returns the original string if parsing failed" $ do
             let string = "import qualified Data.List as L\nfoo\n"
 

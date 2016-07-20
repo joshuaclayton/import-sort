@@ -5,7 +5,7 @@ module ImportSort.Sort
 import qualified Data.List as L
 import qualified Data.Text as T
 import qualified ImportSort.Parser as P
-import           ImportSort.Types (ModuleImport(ModuleImport), sortedImports)
+import           ImportSort.Types
 
 sortImport :: String -> String
 sortImport s =
@@ -15,14 +15,14 @@ renderImports :: [ModuleImport] -> [String]
 renderImports is =
     map (renderImport anyQualified) is
   where
-    anyQualified = any qualifiedPresent is
-    qualifiedPresent (ModuleImport v _) = v
+    anyQualified = any miQualified is
 
 renderImport :: Bool -> ModuleImport -> String
-renderImport anyQualified (ModuleImport qualified value) =
-    "import " ++ qual ++ T.unpack value
+renderImport _ Separator = ""
+renderImport anyQualified mi =
+    "import " ++ qual ++ T.unpack (miValue mi)
   where
-    qual = case (anyQualified, qualified) of
+    qual = case (anyQualified, miQualified mi) of
         (False, _) -> ""
         (_, True)  -> "qualified "
         (_, False) -> "          "
