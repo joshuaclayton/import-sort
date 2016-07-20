@@ -103,6 +103,12 @@ your `$PATH`.
 The intended use-case is Vim, but if your editor supports executing a binary
 against visually-selected text this should still work.
 
+I use the following [keyboard shortcut](https://github.com/joshuaclayton/nvim-config/commit/9e2e4e2980fee69496ea4138bab9a37cf41c001c):
+
+```vimscript
+vmap <silent> <C-I> :!import-sort<CR>
+```
+
 Create a visual selection across whatever imports you want to sort (`Shift-v`,
 plus any navigation), `:` (to run a command), then type `!import-sort` and hit
 return. This will run `import-sort` against highlighted imports.
