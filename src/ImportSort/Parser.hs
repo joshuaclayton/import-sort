@@ -24,16 +24,16 @@ moduleImportParser =
 
 qualifiedImportParser :: Parser ModuleImport
 qualifiedImportParser = do
-    "import" *> skipSpace *> "qualified" *> skipSpace
-    QualifiedImport <$> importTextParser <* endOfLine
+    "import " *> skipSpace *> "qualified" *> skipSpace
+    QualifiedImport <$> toEol
 
 nonQualifiedImportParser :: Parser ModuleImport
 nonQualifiedImportParser = do
-    "import" *> skipSpace
-    NonQualifiedImport <$> importTextParser <* endOfLine
+    "import " *> skipSpace
+    NonQualifiedImport <$> toEol
 
 separatorParser :: Parser ModuleImport
-separatorParser = endOfLine *> pure Separator
+separatorParser = Separator <$> toEol
 
-importTextParser :: Parser Text
-importTextParser = takeTill isEndOfLine
+toEol :: Parser Text
+toEol = takeTill isEndOfLine <* endOfLine

@@ -6,7 +6,7 @@ ImportSort is a utility to format and sort Haskell imports alphabetically.
 
 ## Supported Behavior
 
-ImportSort correctly handles one or many single-line imports.
+ImportSort correctly handles one or many **single-line imports**.
 
 It sorts and aligns imports correctly:
 
@@ -36,21 +36,6 @@ import           Data.Maybe (catMaybes)
 -- | new
 import Data.List ((++))
 import Data.Maybe (catMaybes)
-```
-
-If import-sort cannot parse the list of imports, the value is returned
-unchanged:
-
-```haskell
--- | old
-import           Data.List ((++))
--- | TODO: do something
-import           Data.Maybe (catMaybes)
-
--- | new
-import           Data.List ((++))
--- | TODO: do something
-import           Data.Maybe (catMaybes)
 ```
 
 ## Installation
@@ -106,7 +91,7 @@ against visually-selected text this should still work.
 I use the following [keyboard shortcut](https://github.com/joshuaclayton/nvim-config/commit/9e2e4e2980fee69496ea4138bab9a37cf41c001c):
 
 ```vimscript
-vmap <silent> <C-I> :!import-sort<CR>
+map <Leader><C-I> :%!import-sort<CR>
 ```
 
 Create a visual selection across whatever imports you want to sort (`Shift-v`,

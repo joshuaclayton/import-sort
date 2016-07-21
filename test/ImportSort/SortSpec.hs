@@ -1,7 +1,7 @@
 module ImportSort.SortSpec where
 
-import           Test.Hspec
 import qualified ImportSort.Sort as S
+import           Test.Hspec
 
 main :: IO ()
 main = hspec spec
@@ -41,7 +41,27 @@ spec = parallel $
                         \import           Data.Maybe (catMaybes)\n\n\
                         \import qualified Data.Bifunctor as BF"
 
+        it "allows for full file context" $ do
+            let string = "module Awesome where\n\n\
+                         \import Data.Maybe (catMaybes)\n\
+                         \import Data.List ((++))\n\n\
+                         \import qualified Data.Bifunctor as BF\n\n\
+                         \link :: Int\n\
+                         \link = 1\n\n\
+                         \importPrefixedFunction :: Int\n\
+                         \importPrefixedFunction = 2\n"
+
+            S.sortImport string `shouldBe`
+                        "module Awesome where\n\n\
+                        \import           Data.List ((++))\n\
+                        \import           Data.Maybe (catMaybes)\n\n\
+                        \import qualified Data.Bifunctor as BF\n\n\
+                        \link :: Int\n\
+                        \link = 1\n\n\
+                        \importPrefixedFunction :: Int\n\
+                        \importPrefixedFunction = 2"
+
         it "returns the original string if parsing failed" $ do
-            let string = "import qualified Data.List as L\nfoo\n"
+            let string = "import qualified Data.List as L\nfoo"
 
             S.sortImport string `shouldBe` string

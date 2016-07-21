@@ -18,7 +18,7 @@ renderImports is =
     anyQualified = any miQualified is
 
 renderImport :: Bool -> ModuleImport -> String
-renderImport _ Separator = ""
+renderImport _ (Separator t) = T.unpack t
 renderImport anyQualified mi =
     "import " ++ qual ++ T.unpack (miValue mi)
   where
