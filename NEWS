@@ -1,3 +1,6 @@
+0.3.0.0 (July 31, 2016)
+  Allow import-sort across entire file
+
 0.2.0.0 (July 20, 2016)
   Retain newlines used for grouping
 
